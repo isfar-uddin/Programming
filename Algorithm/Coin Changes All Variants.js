@@ -1,5 +1,8 @@
-let coins = [4,6,2,8, 7, 3, 1];
+let testCase1 = [4,6,2,8, 7, 3, 1];
+let testCase2 = [3,5,8]
+let coins = testCase2;
 let amount = 10;
+
 //Check whether make the amount or not
 let isPossible;
 let coinsLength = coins.length;
@@ -167,3 +170,23 @@ let iterativeCoinChangeWayCount = function() {
 
 let wayCount = iterativeCoinChangeWayCount();
 console.log('Iterative Memorization and number of way: ', wayCount);
+
+//Space optimization O(amount)
+//Memorization
+//number of way count (if same amount is made by two then latest one will be counted)
+let iterativeCoinChangeWayCountUsingSameCoin = function() {
+    let dp = new Array(amount + 1).fill(0);
+    dp[0] = 1;
+    for(let at = 1; at <= coinsLength; at++) {
+        for(let i = coins[at - 1]; i <= amount; i++) {
+            if(dp[i - coins[at- 1]]) {
+                dp[i] = dp[i] + dp[i - coins[at- 1]];
+            }
+        }
+    }
+
+    return dp[amount];
+}
+
+let wayCountUsingSameCoin = iterativeCoinChangeWayCountUsingSameCoin();
+console.log('Iterative Memorization and number of way using same coin multiple time: ', wayCountUsingSameCoin);
