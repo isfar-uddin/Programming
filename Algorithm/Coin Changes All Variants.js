@@ -190,3 +190,23 @@ let iterativeCoinChangeWayCountUsingSameCoin = function() {
 
 let wayCountUsingSameCoin = iterativeCoinChangeWayCountUsingSameCoin();
 console.log('Iterative Memorization and number of way using same coin multiple time: ', wayCountUsingSameCoin);
+
+//Space optimization O(amount)
+//Memorization
+//Coin count (if same amount is made by two then latest one will be counted)
+let iterativeCoinChangeMinCoinCountUsingSameCoin = function() {
+    let dp = new Array(amount + 1).fill(amount + 1);
+    dp[0] = 1;
+    for(let at = 1; at <= coinsLength; at++) {
+        for(let i = coins[at - 1]; i <= amount; i++) {
+            if(dp[i - coins[at- 1]]) {
+                dp[i] = Math.min(dp[i], dp[i - coins[at - 1]] + 1);
+            }
+        }
+    }
+
+    return dp[amount] ? dp[amount] - 1 : 0; // as we take dp[0] = 1 so that we need to substract that value
+}
+
+let minNumberOfCoinUsingSameCoin = iterativeCoinChangeMinCoinCountUsingSameCoin();
+console.log('Iterative Memorization and minimum number of coin using same coin: ', minNumberOfCoinUsingSameCoin);
