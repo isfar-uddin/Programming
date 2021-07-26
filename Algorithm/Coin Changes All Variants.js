@@ -195,12 +195,12 @@ console.log('Iterative Memorization and number of way using same coin multiple t
 //Memorization
 //Coin count (if same amount is made by two then latest one will be counted)
 let iterativeCoinChangeMinCoinCountUsingSameCoin = function() {
-    let dp = new Array(amount + 1).fill(amount + 1);
+    let dp = new Array(amount + 1).fill(0);
     dp[0] = 1;
     for(let at = 1; at <= coinsLength; at++) {
         for(let i = coins[at - 1]; i <= amount; i++) {
             if(dp[i - coins[at- 1]]) {
-                dp[i] = Math.min(dp[i], dp[i - coins[at - 1]] + 1);
+                dp[i] = dp[i] ? Math.min(dp[i], dp[i - coins[at - 1]] + 1) : dp[i - coins[at - 1]] + 1;
             }
         }
     }
