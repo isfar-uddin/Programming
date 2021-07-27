@@ -210,3 +210,22 @@ let iterativeCoinChangeMinCoinCountUsingSameCoin = function() {
 
 let minNumberOfCoinUsingSameCoin = iterativeCoinChangeMinCoinCountUsingSameCoin();
 console.log('Iterative Memorization and minimum number of coin using same coin: ', minNumberOfCoinUsingSameCoin);
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = function(n) {
+    let dp = new Array(n + 1).fill(0);
+    dp[0] = 1;
+
+    for(let i = 0; i <= n; i++) {
+        for(let at = 1; at <= 2; at++) {
+            if(i >= at) {
+             dp[i] += dp[i - at];
+            }
+        }
+    }
+
+    return dp[n];
+};
