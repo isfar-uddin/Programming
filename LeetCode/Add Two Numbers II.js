@@ -52,3 +52,42 @@ function reverseNode(node) {
 
     return prev;
 }
+
+
+// Using stack
+// Follow up task without using reversing input list
+var addTwoNumbers = function(l1, l2) {
+    let l1Stack = [];
+    let l2Stack = [];
+    let carry = 0;
+
+    let ansList = new ListNode(0, null);
+    let node = ansList;
+
+    while(l1) {
+        l1Stack.push(l1.val);
+        l1 = l1.next;
+    }
+
+    while(l2) {
+        l2Stack.push(l2.val);
+        l2 = l2.next;
+    }
+    while(l1Stack.length > 0 || l2Stack.length > 0) {
+        let val1 = l1Stack.length > 0 ? l1Stack.pop() : 0;
+        let val2 = l2Stack.length > 0 ? l2Stack.pop() : 0;
+        let sum = val1 + val2 + carry;
+        if(sum > 9) {
+            carry = 1;
+            ansList.val = sum - 10;
+        } else {
+            carry = 0;
+            ansList.val = sum;
+        }
+
+        let node = new ListNode(carry, ansList);
+        ansList = node;
+    }
+
+    return ansList.val === 0 ? ansList.next : ansList;
+};
