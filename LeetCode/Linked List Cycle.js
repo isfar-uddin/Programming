@@ -24,3 +24,29 @@ var hasCycle = function(head) {
 
     return false;
 };
+
+// Add brute force but modifying actual data
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var hasCycle = function(head) {
+    let pointer = head;
+
+    while(pointer) {
+        if(pointer.val === Infinity) return true;
+
+        pointer.val = Infinity;
+        pointer = pointer.next;
+    }
+
+    return false;
+};
